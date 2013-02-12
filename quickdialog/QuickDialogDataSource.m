@@ -53,7 +53,6 @@
     return [[_tableView.root getVisibleSectionForIndex:indexPath.section] isKindOfClass:[QSortingSection class]];
 }
 
-
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     QSortingSection *section = ((QSortingSection *) [_tableView.root getVisibleSectionForIndex: indexPath.section]);
     if ([section removeElementForRow:indexPath.row]){

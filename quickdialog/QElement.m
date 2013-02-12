@@ -58,11 +58,11 @@
 - (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
     QTableViewCell *cell= [self getOrCreateEmptyCell:tableView];
 
-    [cell applyAppearanceForElement:self];
+    [cell prepareForElement:self];
 
-    cell.textLabel.text = nil; 
-    cell.detailTextLabel.text = nil; 
-    cell.imageView.image = nil; 
+    cell.textLabel.text = nil;
+    cell.detailTextLabel.text = nil;
+    cell.imageView.image = nil;
     cell.userInteractionEnabled = self.enabled;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.showsReorderControl = YES;

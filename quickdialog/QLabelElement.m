@@ -43,18 +43,20 @@
     return nil;
 }
 
-
 - (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
     QTableViewCell *cell = (QTableViewCell *) [super getCellForTableView:tableView controller:controller];
+
+    NSDictionary *dictionary = @{
+        @"title" : @"textLabel.text",
+        @"value" : @"detailTextLabel.text",
+        @"image" : @"imageView.image"
+    };
+    [cell bindTo:dictionary];
+
     cell.accessoryType = _accessoryType== (int) nil ? UITableViewCellAccessoryNone : _accessoryType;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-    cell.textLabel.text = _title;
-    cell.detailTextLabel.text = [_value description];
-    cell.imageView.image = _image;
     cell.accessoryType = _accessoryType != UITableViewCellAccessoryNone ? _accessoryType : ( self.sections!= nil || self.controllerAction!=nil ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone);
     cell.selectionStyle = self.sections!= nil || self.controllerAction!=nil ? UITableViewCellSelectionStyleBlue: UITableViewCellSelectionStyleNone;
-
     return cell;
 }
 

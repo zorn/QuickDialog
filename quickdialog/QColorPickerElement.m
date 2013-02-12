@@ -29,6 +29,23 @@
     return self;
 }
 
+- (void)setSelectedValue:(NSObject *)aSelected {
+    if ([aSelected isKindOfClass:[NSNumber class]]) {
+            self.selected = [(NSNumber *)aSelected integerValue];
+        } else {
+            self.selected = [_items indexOfObject:aSelected];
+            for (int i=0; i<_items.count; i++){
+                if ([[[_items objectAtIndex:i] objectAtIndex:1] isEqualToString:aSelected]){
+                    self.selected = i;
+                    return;
+                }
+
+            }
+
+        }
+}
+
+
 - (void)updateCell:(QEntryTableViewCell *)cell selectedValue:(id)selectedValue {
     if (self.title == NULL){
         cell.textField.text = [[selectedValue objectAtIndex:0] description];

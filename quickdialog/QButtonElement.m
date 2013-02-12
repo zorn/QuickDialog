@@ -37,7 +37,7 @@
     if (cell == nil){
         cell= [[QTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"QuickformButtonElement"];
     }
-    [cell applyAppearanceForElement:self];
+    [cell prepareForElement:self];
     cell.textLabel.text = _title;
     cell.textLabel.textAlignment = NSTextAlignmentCenter;
     cell.textLabel.font = self.appearance.labelFont;

@@ -106,7 +106,7 @@
 }
 
 - (void)prepareForElement:(QEntryElement *)element inTableView:(QuickDialogTableView *)tableView{
-    [self applyAppearanceForElement:element];
+    [self prepareForElement:element];
 
     self.textLabel.text = element.title;
     self.labelingPolicy = element.labelingPolicy;
@@ -324,8 +324,8 @@
     return nil;
 }
 
-- (void)applyAppearanceForElement:(QElement *)element {
-    [super applyAppearanceForElement:element];
+- (void)prepareForElement:(QElement *)element {
+    [super prepareForElement:element];
 
     QAppearance *appearance = element.appearance;
     _textField.font = appearance.entryFont;

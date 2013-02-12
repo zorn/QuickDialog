@@ -59,7 +59,7 @@
         cell = [[QEntryTableViewCell alloc] init];
     }
 
-    [cell applyAppearanceForElement:self];
+    [cell prepareForElement:self];
     _controller = controller;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textField.enabled = self.enabled;

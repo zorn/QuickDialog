@@ -12,10 +12,14 @@
 // permissions and limitations under the License.
 //
 
-#import "QTableViewCell.h"
-@implementation QTableViewCell
+@implementation QTableViewCell    {
+
+    NSDictionary *_propertiesBeingBound;
+}
 
 @synthesize labelingPolicy = _labelingPolicy;
+@synthesize element = _element;
+
 
 - (QTableViewCell *)initWithReuseIdentifier:(NSString *)string {
     self = [super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:string];
@@ -49,8 +53,23 @@
     }
 }
 
+- (void)prepareForReuse {
+    if (_propertiesBeingBound!=nil) {
+        for (NSString * property in _propertiesBeingBound) {
+            [self.element removeObserver:self forKeyPath:property];
+        }
+    }
 
-- (void)applyAppearanceForElement:(QElement *)element {
+    self.element = nil;
+    _propertiesBeingBound = nil;
+}
+
+- (void)prepareForElement:(QElement *)element {
+    [self modifyForAppearance:element];
+    self.element = element;
+}
+
+- (void)modifyForAppearance:(QElement *)element {
     QAppearance *appearance = element.appearance;
     self.textLabel.textColor = element.enabled  ? appearance.labelColorEnabled : appearance.labelColorDisabled;
     self.textLabel.font = appearance.labelFont;
@@ -62,6 +81,19 @@
 
     self.backgroundColor = element.enabled ? appearance.backgroundColorEnabled : appearance.backgroundColorDisabled;
     self.selectedBackgroundView = element.appearance.selectedBackgroundView;
-
 }
+
+- (void)bindTo:(NSDictionary *)properties {
+    _propertiesBeingBound = properties;
+    for (NSString * property in properties) {
+        [self setValue:[self.element valueForKey:property] forKeyPath:[_propertiesBeingBound objectForKey:property]];
+        [self.element addObserver:self forKeyPath:property options:NSKeyValueObservingOptionNew context:nil];
+    }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (object==self.element)
+        [self setValue:[self.element valueForKey:keyPath] forKeyPath:[_propertiesBeingBound objectForKey:keyPath]];
+}
+
 @end

@@ -33,6 +33,8 @@
         _controller = controller;
         self.root = _controller.root;
         self.deselectRowWhenViewAppears = YES;
+        self.allowsMultipleSelection = NO;
+        self.allowsMultipleSelectionDuringEditing = NO;
 
         quickformDataSource = [[QuickDialogDataSource alloc] initForTableView:self];
         self.dataSource = quickformDataSource;

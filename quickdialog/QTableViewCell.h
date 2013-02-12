@@ -15,6 +15,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class QElement;
+
 
 typedef enum {
     QLabelingPolicyTrimTitle,
@@ -27,5 +29,11 @@ typedef enum {
 
 @property (nonatomic) QLabelingPolicy labelingPolicy;
 
-- (void)applyAppearanceForElement:(QElement *)element;
+@property(nonatomic, weak) QElement *element;
+
+- (void)prepareForElement:(QElement *)element;
+
+- (void)modifyForAppearance:(QElement *)element;
+
+- (void)bindTo:(NSDictionary *)dictionary;
 @end

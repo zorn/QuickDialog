@@ -47,18 +47,6 @@
     [self createElements];
 }
 
--(NSObject *)selectedValue {
-    return [_values objectAtIndex:(NSUInteger) _selected];
-}
-
--(void)setSelectedValue:(NSObject *)aSelected {
-    if ([aSelected isKindOfClass:[NSNumber class]]) {
-        self.selected = [(NSNumber *)aSelected integerValue];
-    } else {
-        self.selected = [_values indexOfObject:aSelected];
-    }
-
-}
 
 - (QEntryElement *)init {
     self = [super init];
@@ -118,15 +106,33 @@
 }
 
 
-- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
-    QEntryTableViewCell *cell = (QEntryTableViewCell *) [super getCellForTableView:tableView controller:controller];
+-(void)setSelectedValue:(NSObject *)aSelected {
+    if ([aSelected isKindOfClass:[NSNumber class]]) {
+        self.selected = [(NSNumber *)aSelected integerValue];
+    } else {
+        self.selected = [_values indexOfObject:aSelected];
+    }
+}
 
+-(id)selectedValue {
     id selectedValue = nil;
     if (_selected >= 0 && _selected <_items.count){
         selectedValue = [_items objectAtIndex:(NSUInteger) _selected];
     }
+    return selectedValue;
+}
 
-    [self updateCell:cell selectedValue:selectedValue];
+- (UITableViewCell *)getCellForTableView:(QuickDialogTableView *)tableView controller:(QuickDialogController *)controller {
+    QEntryTableViewCell *cell = (QEntryTableViewCell *) [super getCellForTableView:tableView controller:controller];
+
+    NSDictionary *dictionary = @{
+        @"title" : @"textLabel.text",
+        @"image" : @"imageView.image",
+        @"selectedValue" : @"textField.text"
+    };
+    [cell bindTo:dictionary];
+
+    //[self updateCell:cell selectedValue:selectedValue];
     cell.accessoryType = self.enabled ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
     cell.selectionStyle = self.enabled ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
     cell.textField.userInteractionEnabled = NO;

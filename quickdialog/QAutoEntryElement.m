@@ -59,7 +59,7 @@
         cell = [[QAutoEntryTableViewCell alloc] init];
     }
 
-    [cell applyAppearanceForElement:self];
+    [cell prepareForElement:self];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textField.enabled = self.enabled;
     cell.textField.userInteractionEnabled = self.enabled;

@@ -147,14 +147,10 @@
     root.grouped = YES;
     root.title = @"Sample Controls";
     QSection *controls = [[QSection alloc] initWithTitle:@"Change something"];
-
     QLabelElement *element1 = [[QLabelElement alloc] initWithTitle:@"Label" Value:@"element"];
-
 
     QRadioElement *radioElement = [[QRadioElement alloc] initWithItems:[[NSArray alloc] initWithObjects:@"Option 1", @"Option 2", @"Option 3",@"Option 11", @"Option 12", @"Option 13", @"Option 21", @"Option 22", @"Option 33", @"Option 41", @"Option 42", @"Option 43", @"Option 51", @"Option 52", @"Option 53", @"Option 61", @"Option 62", @"Option 63", @"Option 71", @"Option 72", @"Option 73", nil] selected:7 title:@"Radio"];
 	radioElement.key = @"radio1";
-
-
 
     QBooleanElement *boolElement = [[QBooleanElement alloc] initWithTitle:@"Boolean Element" BoolValue:YES];
     boolElement.controllerAction = @"exampleAction:";
@@ -655,7 +651,26 @@
     QRootElement *root = [[QRootElement alloc] init];
     root.grouped = YES;
     root.title = @"QuickDialog!";
-	QSection *sectionSamples = [[QSection alloc] init];
+
+    QSection *binding = [[QSection alloc] initWithTitle:@"Cell binding"];
+    QLabelElement *label = [[QLabelElement alloc] initWithTitle:@"initial" Value:@"Value"];
+    QRadioElement *radio = [[QRadioElement alloc] initWithItems:[[NSArray alloc] initWithObjects:@"Option 1", @"Option 2", @"Option 3",@"Option 11", @"Option 12", @"Option 13", @"Option 21", @"Option 22", @"Option 33", @"Option 41", @"Option 42", @"Option 43", @"Option 51", @"Option 52", @"Option 53", @"Option 61", @"Option 62", @"Option 63", @"Option 71", @"Option 72", @"Option 73", nil] selected:7 title:@"Radio"];
+
+
+    QButtonElement *buttonElement = [[QButtonElement alloc] initWithTitle:@"Change!"];
+    buttonElement.onSelected = ^ {
+        label.title = @"First";
+        label.value = @"second";
+        label.image = [UIImage imageNamed:@"imgOn"];
+        radio.selectedValue = @"Option 1";
+    };
+    [binding addElement:label];
+    [binding addElement:radio];
+    [binding addElement:buttonElement];
+
+    [root addSection:binding];
+
+    QSection *sectionSamples = [[QSection alloc] init];
     sectionSamples.headerView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"quickdialog"]];
     [sectionSamples addElement:[[QRootElement alloc] initWithJSONFile:@"loginform"]];
     [sectionSamples addElement:[self createSampleControls]];
