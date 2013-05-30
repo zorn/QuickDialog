@@ -32,6 +32,7 @@
 #import "QLoadingElement.h"
 #import "QRootElement.h"
 #import "QLabelElement.h"
+#import "QTwoLineLabel.h"
 #import "QBadgeElement.h"
 #import "QBooleanElement.h"
 #import "QButtonElement.h"

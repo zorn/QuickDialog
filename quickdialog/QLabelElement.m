@@ -15,11 +15,7 @@
 
 #import "QLabelElement.h"
 
-@implementation QLabelElement {
-@private
-    UITableViewCellAccessoryType _accessoryType;
-}
-
+@implementation QLabelElement
 
 @synthesize image = _image;
 @synthesize value = _value;

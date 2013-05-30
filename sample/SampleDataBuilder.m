@@ -16,6 +16,7 @@
 #import "SampleDataBuilder.h"
 #import "QDynamicDataSection.h"
 #import "PeriodPickerValueParser.h"
+#import "QTwoLineLabel.h"
 
 @implementation SampleDataBuilder
 
@@ -388,7 +389,11 @@
     [s1 addElement:[[QLabelElement alloc] initWithTitle:@"With a value" Value:@"Value"]];
     [s1 addElement:[[QLabelElement alloc] initWithTitle:@"Or a simple number" Value:@"123"]];
     [s1 addElement:[[QLabelElement alloc] initWithTitle:@"Long text long text long text long text" Value:@"this is the value"]];
+    
+    QTwoLineLabel *twoLineLabel = [[QTwoLineLabel alloc] initWithTitle:@"Two line label" Value:@"Value on the bottom."];
+    [s1 addElement:twoLineLabel];
 
+    
     QSection *s2 = [[QSection alloc] initWithTitle:@"BadgeElement"];
     QBadgeElement *badge1 = [[QBadgeElement alloc] initWithTitle:@"With a badge" Value:@"1"];
     [s2 addElement:badge1];
